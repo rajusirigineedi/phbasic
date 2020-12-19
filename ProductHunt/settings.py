@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '4mzxkl=#wtdzc!7%@11e9h2tt($h8qv!^=a*hz94^eg&01+p8o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['syntaxerror.pythonanywhere.com']
 
 
 # Application definition
@@ -109,8 +109,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 STATICFILES_DIRS = [
     BASE_DIR / 'ProductHunt/static'
 ]
+
+
+
+try:
+    from local_settings.py import *
+except ImportError:
+    print("You are on production")
