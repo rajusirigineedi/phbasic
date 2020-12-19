@@ -117,8 +117,7 @@ STATICFILES_DIRS = [
 ]
 
 
-
 try:
-    from local_settings.py import *
-except ImportError:
-    print("You are on production")
+    from .local_settings import *
+except ImportError as e:
+    print("You are on production", e )
