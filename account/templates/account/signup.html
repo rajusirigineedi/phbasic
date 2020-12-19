@@ -1,0 +1,41 @@
+{%extends 'base.html'%}
+
+
+{% block header %}
+{% include 'components/header.html' with islogin=False %}
+{% endblock %}
+{% block footer %}
+{% include 'components/footer.html' %}
+{% endblock %}
+
+{% block content %}
+
+{% if error %}
+{{ error }}
+<br />
+{% endif %}
+<h1>Sign Up!</h1>
+
+<form method="POST" action="{% url 'account:signup' %}">
+{% csrf_token %}
+Username:
+<br />
+<input type="text" name="username" />
+<br />
+Password:
+<br />
+<input type="password" name="password" />
+<br />
+Confirm Password:
+<br />
+<input type="password" name="password-re" />
+<br />
+<br />
+<input class="btn btn-primary" type="submit" value="Sign Up!" />
+</form>
+{% endblock %}
+
+{% block signup %}
+<a class="nav-item nav-link" href="{% url 'account:login' %}">Login</a>
+<a class="nav-item nav-link active" href="{% url 'account:signup' %}">SignUp</a>
+{% endblock %}

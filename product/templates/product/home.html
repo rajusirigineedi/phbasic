@@ -1,0 +1,51 @@
+
+{% extends 'base.html' %}
+
+{% block header %}
+{% include 'components/header.html' with islogin=True %}
+{% endblock %}
+
+{% block jumbotron %}
+{% include 'components/jumbo.html' %}
+{% endblock %}
+
+
+{% block content %}
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+
+{% for product in products %}
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{product.image.url}}" alt="Image">
+          <div class="card-body">
+            <a href="{% url 'product:display' product.id %}"><h3>{{product.title}}</h3></a>
+            <p class="card-text">{{product.summary}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <a href="javascript:{document.getElementById('upvote{{product.id}}').submit()}"><button  type="button" class="btn btn-sm btn-primary">Upvote {{product.votes_total}}</button></a>
+                <form id="upvote{{product.id}}" method="POST" action="{% url 'product:upvote_wo' product.id %}">
+                   {% csrf_token %}
+                   <input type="hidden" />
+                </form>
+              </div>
+              <small class="text-muted">{{product.pub_date_pretty}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endfor %}
+
+
+    </div>
+
+
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'components/footer.html' %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load static %}
+<header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<a class="navbar-brand" href="#">
+  <img src="{% static 'images/load.gif' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+  ProductHunt
+</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+<div class="navbar-nav ml-auto">
+  {% if user.is_authenticated %}
+  <a class="nav-item nav-link active" href="javascript:{document.getElementById('logout').submit()}" onclick="">Logout</a>
+  <form id="logout" method="POST" action="{% url 'account:logout' %}">
+       {% csrf_token %}
+       <input type="hidden" />
+  </form>
+  {% else %}
+  <a class="nav-item nav-link {% if islogin %} active {% endif %}" href="{% url 'account:login' %}">Login</a>
+  <a class="nav-item nav-link {% if not islogin %} active {% endif %}" href="{% url 'account:signup' %}">SignUp</a>
+  {% endif %}
+</div>
+</div>
+</nav>
+</header>
